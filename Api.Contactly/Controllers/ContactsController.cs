@@ -45,5 +45,21 @@ namespace Api.Contactly.Controllers
 
             return Ok(contact);
         }
+
+        [HttpDelete]
+        public IActionResult DeleteContact(Guid id)
+        {
+            var contact = _context.Contacts.FirstOrDefault(c => c.ContactId == id);
+
+            if (contact == null)
+            {
+                return NotFound();
+            }
+
+            _context.Contacts.Remove(contact);
+            _context.SaveChanges();
+
+            return Ok();
+        }
     }
 }
